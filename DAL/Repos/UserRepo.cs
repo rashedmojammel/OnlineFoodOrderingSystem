@@ -1,6 +1,7 @@
 ﻿using DAL.EF;
 using DAL.EF.Tables;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DAL.Repos
 {
@@ -19,9 +20,9 @@ namespace DAL.Repos
             return db.SaveChanges() > 0;
         }
 
-        public User Get(int id)
+        public User? Get(int id)
         {
-            return db.Users.Find(id);
+            return db.Users.FirstOrDefault(u => u.Id == id);
         }
 
         public List<User> Get()
@@ -32,6 +33,7 @@ namespace DAL.Repos
         public bool Update(User u)
         {
             var exobj = Get(u.Id);
+            if (exobj == null) return false;
             db.Entry(exobj).CurrentValues.SetValues(u);
             return db.SaveChanges() > 0;
         }
@@ -39,12 +41,23 @@ namespace DAL.Repos
         public bool Delete(int id)
         {
             var exobj = Get(id);
+            if (exobj == null) return false;
             db.Users.Remove(exobj);
             return db.SaveChanges() > 0;
         }
-        public User? Login(string name, string role)
+
+        public User? Login(string email, string password)
         {
-            return db.Users.FirstOrDefault(u => u.Name == name && u.Role == role);
+            var allUsers = db.Users.ToList();
+            return allUsers.FirstOrDefault(u =>
+                u.Email.Trim().ToLower() == email.Trim().ToLower() &&
+                u.Password.Trim() == password.Trim()
+            );
+        }
+
+        public bool EmailExists(string email)
+        {
+            return db.Users.Any(u => u.Email == email);
         }
     }
 }

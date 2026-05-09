@@ -1,30 +1,62 @@
-﻿@* APP/Views/Account/Login.cshtml *@
-@model BAL.DTOs.LoginDTO
+﻿@model BAL.DTOs.LoginDTO
 @{
     ViewData["Title"] = "Login";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login - FoodOrder</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+            body { background: #f0f2f5; }
+            .card { border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+            .btn-custom { background: #ff6b35; border-color: #ff6b35; color:white; }
+            .btn-custom:hover { background: #e55a25; border-color: #e55a25; color:white; }
+            .brand { color: #ff6b35; font-weight: bold; font-size: 28px; }
+            .form-control:focus { border-color: #ff6b35; box-shadow: 0 0 0 0.2rem rgba(255,107,53,0.25); }
+            a { color: #ff6b35; }
+            a:hover { color: #e55a25; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-4">
+                    <div class="text-center mb-4">
+                        <div class="brand">🍔 FoodOrder</div>
+                        <p class="text-muted">Sign in to your account</p>
+                    </div>
 
-<div class="row justify-content-center mt-5">
-    <div class="col-md-4">
-        <h2 class="mb-3">Login</h2>
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger">@ViewBag.Error</div>
-        }
-        <form method="post">
-            <div class="mb-3">
-                <label>Name</label>
-                <input asp-for="Name" class="form-control" />
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["Success"]</div>
+                    }
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.Error</div>
+                    }
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Password</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100 mb-3">Login</button>
+                        <div class="text-center">
+                            <span class="text-muted">Don't have an account? </span>
+                            <a asp-action="Register">Register here</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="mb-3">
-                <label>Role</label>
-                <select asp-for="Role" class="form-control">
-                    <option value="">-- Select Role --</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Customer">Customer</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
+        </div>
     </div>
-</div>
+</body>
+</html>

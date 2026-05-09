@@ -15,13 +15,12 @@ builder.Services.AddDbContext<OnlineFoodOrderingSystemDbContext>(opt =>
 builder.Services.AddScoped<UserRepo>();
 builder.Services.AddScoped<UserService>();
 
-// ✅ Both required for session to work
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true; // ✅ critical
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -34,14 +33,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();          // ✅ 1st
+app.UseRouting();
 app.UseAuthorization();
-app.UseSession();          // ✅ 2nd - must be after UseRouting
+app.UseSession();
 
 app.MapStaticAssets();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}") // ✅ start at login
+    pattern: "{controller=Account}/{action=Login}/{id?}")
     .WithStaticAssets();
 
 app.Run();

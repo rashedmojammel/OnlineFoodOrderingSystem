@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BAL.DTOs
+﻿namespace BAL.DTOs
 {
     public class LoginDTO
     {
-        public string Name { get; set; } = null!;
-        public string Role { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Password { get; set; } = null!;
     }
 }

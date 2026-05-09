@@ -2,9 +2,7 @@
 using BAL.DTOs;
 using DAL.EF.Tables;
 using DAL.Repos;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BAL.Services
 {
@@ -22,15 +20,13 @@ namespace BAL.Services
         public List<UserDTO> Get()
         {
             var data = repo.Get();
-            var res = mapper.Map<List<UserDTO>>(data);
-            return res;
+            return mapper.Map<List<UserDTO>>(data);
         }
 
-        public UserDTO Get(int id)
+        public UserDTO? Get(int id)
         {
             var data = repo.Get(id);
-            var res = mapper.Map<UserDTO>(data);
-            return res;
+            return mapper.Map<UserDTO>(data);
         }
 
         public bool Create(UserDTO u)
@@ -49,11 +45,24 @@ namespace BAL.Services
         {
             return repo.Delete(id);
         }
-        public UserDTO? Login(string name, string role)
+
+        public UserDTO? Login(string email, string password)
         {
-            var data = repo.Login(name, role);
+            var data = repo.Login(email, password);
             if (data == null) return null;
             return mapper.Map<UserDTO>(data);
+        }
+
+        public bool Register(RegisterDTO dto)
+        {
+            if (repo.EmailExists(dto.Email)) return false;
+            var user = mapper.Map<User>(dto);
+            return repo.Create(user);
+        }
+
+        public bool EmailExists(string email)
+        {
+            return repo.EmailExists(email);
         }
     }
 }
