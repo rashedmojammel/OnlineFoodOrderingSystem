@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+  </Folder>
   <Project Path="APP/APP.csproj" />
   <Project Path="BAL/BAL.csproj" />
   <Project Path="DAL/DAL.csproj" />
