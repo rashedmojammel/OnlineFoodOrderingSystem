@@ -1,2 +1,41 @@
-﻿
-<h1>Welcome, @ViewBag.UserName</h1>
+﻿@{
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Welcome, <span style="color:#ff6b35">@ViewBag.UserName</span> 👋</h2>
+    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body text-center">
+                <h1>🍔</h1>
+                <h5 class="card-title">Browse Menu</h5>
+                <p class="card-text">Order your favourite food</p>
+                <a asp-controller="Menu" asp-action="Index" class="btn btn-light">Order Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white mb-3" style="background:#ff6b35">
+            <div class="card-body text-center">
+                <h1>🛒</h1>
+                <h5 class="card-title">My Cart</h5>
+                <p class="card-text">View and checkout your cart</p>
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-light">View Cart</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body text-center">
+                <h1>📋</h1>
+                <h5 class="card-title">My Orders</h5>
+                <p class="card-text">Track your order status</p>
+                <a asp-controller="Order" asp-action="MyOrders" class="btn btn-light">Track Orders</a>
+            </div>
+        </div>
+    </div>
+</div>

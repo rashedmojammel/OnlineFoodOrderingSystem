@@ -1,2 +1,47 @@
-﻿@* AdminDashboard/Index.cshtml *@
-<h1>Welcome, Admin @ViewBag.UserName</h1>
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Welcome, Admin <span style="color:#ff6b35">@ViewBag.UserName</span> 👋</h2>
+    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white mb-3" style="background:#ff6b35">
+            <div class="card-body">
+                <h5 class="card-title">👥 Users</h5>
+                <p class="card-text">Manage all users</p>
+                <a asp-controller="User" asp-action="Index" class="btn btn-light btn-sm">Manage</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">🍽️ Categories</h5>
+                <p class="card-text">Manage food categories</p>
+                <a asp-controller="Category" asp-action="Index" class="btn btn-light btn-sm">Manage</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">🍔 Food Items</h5>
+                <p class="card-text">Manage food menu</p>
+                <a asp-controller="Food" asp-action="Index" class="btn btn-light btn-sm">Manage</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">📋 Orders</h5>
+                <p class="card-text">Manage all orders</p>
+                <a asp-controller="Order" asp-action="Index" class="btn btn-light btn-sm">Manage</a>
+            </div>
+        </div>
+    </div>
+</div>
