@@ -42,5 +42,9 @@ namespace DAL.Repos
             db.Users.Remove(exobj);
             return db.SaveChanges() > 0;
         }
+        public User? Login(string name, string role)
+        {
+            return db.Users.FirstOrDefault(u => u.Name == name && u.Role == role);
+        }
     }
 }

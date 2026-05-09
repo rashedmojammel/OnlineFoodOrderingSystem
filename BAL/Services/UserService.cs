@@ -49,5 +49,11 @@ namespace BAL.Services
         {
             return repo.Delete(id);
         }
+        public UserDTO? Login(string name, string role)
+        {
+            var data = repo.Login(name, role);
+            if (data == null) return null;
+            return mapper.Map<UserDTO>(data);
+        }
     }
 }
