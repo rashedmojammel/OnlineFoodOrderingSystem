@@ -1,10 +1,17 @@
+
+using BAL.Services;
 using DAL.EF;
+using DAL.Repos;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<UserRepo>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddDbContext<OnlineFoodOrderingSystemDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConn"));

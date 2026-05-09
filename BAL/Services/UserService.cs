@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BAL.DTOs;
-using BLL;
 using DAL.EF.Tables;
 using DAL.Repos;
 using System;

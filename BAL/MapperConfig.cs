@@ -2,7 +2,7 @@
 using BAL.DTOs;
 using DAL.EF.Tables;
 
-namespace BLL
+namespace BAL
 {
     public class MapperConfig
     {
