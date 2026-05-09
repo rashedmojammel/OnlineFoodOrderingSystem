@@ -1,16 +1,2 @@
-﻿
-@{
-    ViewData["Title"] = "Admin Dashboard";
-}
-
-<h1>Welcome, Admin @Context.Session.GetString("UserName")</h1>
-<div class="row mt-4">
-    <div class="col-md-4">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Manage Users</h5>
-                <a asp-controller="User" asp-action="Index" class="btn btn-light">Go</a>
-            </div>
-        </div>
-    </div>
-</div>
+﻿@* AdminDashboard/Index.cshtml *@
+<h1>Welcome, Admin @ViewBag.UserName</h1>

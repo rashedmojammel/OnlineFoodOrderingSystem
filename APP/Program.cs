@@ -20,6 +20,7 @@ builder.Services.AddDbContext<OnlineFoodOrderingSystemDbContext>(opt =>
 
 var app = builder.Build();
 app.UseSession();
+app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

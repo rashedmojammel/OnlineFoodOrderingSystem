@@ -7,9 +7,14 @@ namespace APP.Controllers
     {
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("UserRole") != "Admin")
+            if (HttpContext.Session.GetString("UserName") != null)
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("UserName");
+            }
+            else
+            {
                 return RedirectToAction("Login", "Account");
-
+            }
             return View();
         }
     }

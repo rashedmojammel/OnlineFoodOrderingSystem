@@ -1,7 +1,2 @@
 ﻿
-@{
-    ViewData["Title"] = "Customer Dashboard";
-}
-
-<h1>Welcome, @Context.Session.GetString("UserName")</h1>
-<p>Browse and place your orders here.</p>
+<h1>Welcome, @ViewBag.UserName</h1>
