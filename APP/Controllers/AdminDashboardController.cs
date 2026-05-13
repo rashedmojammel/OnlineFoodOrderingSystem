@@ -21,6 +21,13 @@ namespace APP.Controllers
             if (HttpContext.Session.GetString("UserName") != null)
             {
                 ViewBag.UserName = HttpContext.Session.GetString("UserName");
+                ViewBag.TotalUsers = userService.Get().Count;
+                //ViewBag.TotalCategories = 0; // replace when CategoryService is added
+                //ViewBag.TotalFoods = 0; // replace when FoodService is added
+                //ViewBag.TotalOrders = 0; // replace when OrderService is added
+
+                ViewBag.RecentUsers = userService.Get().TakeLast(5).ToList();
+
             }
             else
             {

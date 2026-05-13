@@ -2,46 +2,214 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
+<!-- Welcome Header -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Welcome, Admin <span style="color:#ff6b35">@ViewBag.UserName</span> 👋</h2>
-    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
+    <div>
+        <h2 class="fw-bold mb-0">
+            <i class="fa-solid fa-gauge me-2" style="color:#ff6b35"></i>Admin Dashboard
+        </h2>
+        <p class="text-muted mb-0">
+            Welcome back, <strong style="color:#ff6b35">@ViewBag.UserName</strong> 
+        </p>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-3">
-        <div class="card text-white mb-3" style="background:#ff6b35">
-            <div class="card-body">
-                <h5 class="card-title">👥 Users</h5>
-                <p class="card-text">Manage all users</p>
-                <a asp-controller="User" asp-action="Index" class="btn btn-light btn-sm">Manage</a>
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 text-white"
+             style="border-radius:15px; background:linear-gradient(135deg,#ff6b35,#f7931e)">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-1 opacity-75">Total Users</p>
+                    <h3 class="fw-bold mb-0">@ViewBag.TotalUsers</h3>
+                </div>
+                <i class="fa-solid fa-users fa-2x opacity-75"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-success mb-3">
-            <div class="card-body">
-                <h5 class="card-title">🍽️ Categories</h5>
-                <p class="card-text">Manage food categories</p>
-                <a asp-controller="Category" asp-action="Index" class="btn btn-light btn-sm">Manage</a>
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 text-white"
+             style="border-radius:15px; background:linear-gradient(135deg,#28a745,#20c997)">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-1 opacity-75">Categories</p>
+                    <h3 class="fw-bold mb-0">@ViewBag.TotalCategories</h3>
+                </div>
+                <i class="fa-solid fa-utensils fa-2x opacity-75"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-body">
-                <h5 class="card-title">🍔 Food Items</h5>
-                <p class="card-text">Manage food menu</p>
-                <a asp-controller="Food" asp-action="Index" class="btn btn-light btn-sm">Manage</a>
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 text-white"
+             style="border-radius:15px; background:linear-gradient(135deg,#007bff,#6610f2)">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-1 opacity-75">Food Items</p>
+                    <h3 class="fw-bold mb-0">@ViewBag.TotalFoods</h3>
+                </div>
+                <i class="fa-solid fa-burger fa-2x opacity-75"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-warning mb-3">
-            <div class="card-body">
-                <h5 class="card-title">📋 Orders</h5>
-                <p class="card-text">Manage all orders</p>
-                <a asp-controller="Order" asp-action="Index" class="btn btn-light btn-sm">Manage</a>
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 text-white"
+             style="border-radius:15px; background:linear-gradient(135deg,#ffc107,#fd7e14)">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-1 opacity-75">Total Orders</p>
+                    <h3 class="fw-bold mb-0">@ViewBag.TotalOrders</h3>
+                </div>
+                <i class="fa-solid fa-clipboard-list fa-2x opacity-75"></i>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Management Cards -->
+<h5 class="fw-bold mb-3">
+    <i class="fa-solid fa-table-cells-large me-2" style="color:#ff6b35"></i>Quick Management
+</h5>
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 h-100"
+             style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+            <div class="card-body text-center p-4">
+                <div class="mb-3 rounded-circle d-inline-flex align-items-center
+                    justify-content-center"
+                     style="width:65px; height:65px; background:#fff3ee">
+                    <i class="fa-solid fa-users fa-2x" style="color:#ff6b35"></i>
+                </div>
+                <h5 class="fw-bold">Users</h5>
+                <p class="text-muted small">Manage all registered users</p>
+                <a asp-action="UserList" class="btn w-100 text-white"
+                       style="background:#ff6b35">
+                    <i class="fa-solid fa-arrow-right me-1"></i> Manage
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 h-100"
+             style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+            <div class="card-body text-center p-4">
+                <div class="mb-3 rounded-circle d-inline-flex align-items-center
+                    justify-content-center"
+                     style="width:65px; height:65px; background:#eaffee">
+                    <i class="fa-solid fa-utensils fa-2x text-success"></i>
+                </div>
+                <h5 class="fw-bold">Categories</h5>
+                <p class="text-muted small">Manage food categories</p>
+                <a asp-controller="Category" asp-action="Index"
+                       class="btn btn-success w-100">
+                    <i class="fa-solid fa-arrow-right me-1"></i> Manage
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 h-100"
+             style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+            <div class="card-body text-center p-4">
+                <div class="mb-3 rounded-circle d-inline-flex align-items-center
+                    justify-content-center"
+                     style="width:65px; height:65px; background:#eef3ff">
+                    <i class="fa-solid fa-burger fa-2x text-primary"></i>
+                </div>
+                <h5 class="fw-bold">Food Items</h5>
+                <p class="text-muted small">Manage food menu items</p>
+                <a asp-controller="Food" asp-action="Index"
+                       class="btn btn-primary w-100">
+                    <i class="fa-solid fa-arrow-right me-1"></i> Manage
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 h-100"
+             style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+            <div class="card-body text-center p-4">
+                <div class="mb-3 rounded-circle d-inline-flex align-items-center
+                    justify-content-center"
+                     style="width:65px; height:65px; background:#fffbee">
+                    <i class="fa-solid fa-clipboard-list fa-2x text-warning"></i>
+                </div>
+                <h5 class="fw-bold">Orders</h5>
+                <p class="text-muted small">View and manage all orders</p>
+                <a asp-controller="Order" asp-action="Index"
+                       class="btn btn-warning w-100">
+                    <i class="fa-solid fa-arrow-right me-1"></i> Manage
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Users Table -->
+<div class="card border-0 mb-4"
+     style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+    <div class="card-header border-0 d-flex justify-content-between align-items-center"
+         style="background:white; border-radius:15px 15px 0 0">
+        <h5 class="fw-bold mb-0">
+            <i class="fa-solid fa-clock-rotate-left me-2" style="color:#ff6b35"></i>
+            Recent Users
+        </h5>
+        <a asp-action="UserList" class="btn btn-sm"
+               style="background:#ff6b35; color:white">
+            <i class="fa-solid fa-eye me-1"></i> View All
+        </a>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead style="background:#f8f9fa">
+                <tr>
+                    <th class="ps-4">
+                        <i class="fa-solid fa-hashtag me-1"></i>ID
+                    </th>
+                    <th><i class="fa-solid fa-user me-1"></i>Name</th>
+                    <th><i class="fa-solid fa-envelope me-1"></i>Email</th>
+                    <th><i class="fa-solid fa-shield-halved me-1"></i>Role</th>
+                    <th><i class="fa-solid fa-gear me-1"></i>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.RecentUsers != null)
+                {
+                    @foreach (var user in ViewBag.RecentUsers)
+                    {
+                        <tr>
+                            <td class="ps-4">@user.Id</td>
+                            <td>@user.Name</td>
+                            <td>@user.Email</td>
+                            <td>
+                                @if (user.Role.ToLower() == "admin")
+                                {
+                                    <span class="badge"
+                                          style="background:#ff6b35">
+                                        <i class="fa-solid fa-crown me-1"></i>Admin
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">
+                                        <i class="fa-solid fa-user me-1"></i>Customer
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@user.Id"
+                                       class="btn btn-warning btn-sm">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@user.Id"
+                                       class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
     </div>
 </div>

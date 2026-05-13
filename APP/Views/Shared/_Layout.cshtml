@@ -22,16 +22,17 @@
     </style>
 </head>
 <body>
+    
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom mb-3">
         <div class="container">
-
-            <!-- Brand -->
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand">
                 <i class="fa-solid fa-burger" style="color:#ff6b35"></i>
                 <span>FoodOrder</span>
             </a>
+
+            
 
             <!-- Toggler for mobile -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -43,25 +44,23 @@
 
                 <!-- Left Links -->
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">
-                            <i class="fa-solid fa-house me-1"></i> Home
-                        </a>
-                    </li>
+                   
 
                     @if (Context.Session.GetString("UserRole") != null &&
                          Context.Session.GetString("UserRole").ToLower() == "admin")
                     {
+                        <!-- Brand -->
+            
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="AdminDashboard" asp-action="Index">
-                                <i class="fa-solid fa-gauge me-1"></i> Dashboard
+                                <i class="fa-solid fa-gauge me-1"></i> Home
                             </a>
                         </li>
-                        @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="AdminDashboard" asp-action="UserList">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="User" asp-action="Index">
                                 <i class="fa-solid fa-users me-1"></i> Users
                             </a>
-                        </li> *@
+                        </li>
                         @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">
                                 <i class="fa-solid fa-utensils me-1"></i> Categories
@@ -81,6 +80,11 @@
                     else if (Context.Session.GetString("UserRole") != null &&
                              Context.Session.GetString("UserRole").ToLower() == "customer")
                     {
+                         <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">
+                            <i class="fa-solid fa-house me-1"></i> Home
+                        </a>
+                    </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="CustomerDashboard" asp-action="Index">
                                 <i class="fa-solid fa-gauge me-1"></i> Dashboard
@@ -105,47 +109,12 @@
                 </ul>
 
                 <!-- Right Links -->
-                <ul class="navbar-nav">
-                    @if (Context.Session.GetString("UserName") != null)
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark fw-bold" href="#"
-                               data-bs-toggle="dropdown">
-                                <i class="fa-solid fa-circle-user me-1" style="color:#ff6b35"></i>
-                                @Context.Session.GetString("UserName")
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <span class="dropdown-item-text text-muted">
-                                        <i class="fa-solid fa-shield-halved me-1"></i>
-                                        @Context.Session.GetString("UserRole")
-                                    </span>
-                                </li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li>
-                                    <a class="dropdown-item text-danger"
-                                       asp-controller="Account" asp-action="Logout">
-                                        <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">
-                                <i class="fa-solid fa-right-to-bracket me-1"></i> Login
-                            </a>
-                        </li>
-                        <li class="nav-item ms-2">
-                            <a class="btn btn-orange btn-sm"
-                               asp-controller="Account" asp-action="Register">
-                                <i class="fa-solid fa-user-plus me-1"></i> Register
-                            </a>
-                        </li>
-                    }
-                </ul>
+                <div class="flex justify-content-end">
+                     <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">
+        <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+    </a>
+                </div>
+               
 
             </div>
         </div>
