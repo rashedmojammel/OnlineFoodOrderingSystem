@@ -3,45 +3,222 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - APP</title>
+    <title>@ViewData["Title"] - FoodOrder</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/APP.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        .navbar-brand span { color: #ff6b35; font-weight: bold; font-size: 22px; }
+        .navbar { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .nav-link:hover { color: #ff6b35 !important; }
+        .btn-orange { background: #ff6b35; border-color: #ff6b35; color: white; }
+        .btn-orange:hover { background: #e55a25; color: white; }
+        footer { background: #222; color: #aaa; }
+        footer a { color: #ff6b35; text-decoration: none; }
+        footer a:hover { color: #e55a25; }
+        footer h6 { color: white; font-weight: bold; }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">APP</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom mb-3">
+        <div class="container">
+
+            <!-- Brand -->
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <i class="fa-solid fa-burger" style="color:#ff6b35"></i>
+                <span>FoodOrder</span>
+            </a>
+
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                <!-- Left Links -->
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">
+                            <i class="fa-solid fa-house me-1"></i> Home
+                        </a>
+                    </li>
+
+                    @if (Context.Session.GetString("UserRole") != null &&
+                         Context.Session.GetString("UserRole").ToLower() == "admin")
+                    {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="AdminDashboard" asp-action="Index">
+                                <i class="fa-solid fa-gauge me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        @* <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="AdminDashboard" asp-action="UserList">
+                                <i class="fa-solid fa-users me-1"></i> Users
+                            </a>
+                        </li> *@
+                        @* <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">
+                                <i class="fa-solid fa-utensils me-1"></i> Categories
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-controller="Food" asp-action="Index">
+                                <i class="fa-solid fa-burger me-1"></i> Foods
+                            </a>
                         </li>
-                    </ul>
-                </div>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Order" asp-action="Index">
+                                <i class="fa-solid fa-clipboard-list me-1"></i> Orders
+                            </a>
+                        </li> *@
+                    }
+                    else if (Context.Session.GetString("UserRole") != null &&
+                             Context.Session.GetString("UserRole").ToLower() == "customer")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="CustomerDashboard" asp-action="Index">
+                                <i class="fa-solid fa-gauge me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Menu" asp-action="Index">
+                                <i class="fa-solid fa-utensils me-1"></i> Menu
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">
+                                <i class="fa-solid fa-cart-shopping me-1"></i> Cart
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Order" asp-action="MyOrders">
+                                <i class="fa-solid fa-box me-1"></i> My Orders
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+                <!-- Right Links -->
+                <ul class="navbar-nav">
+                    @if (Context.Session.GetString("UserName") != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark fw-bold" href="#"
+                               data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-circle-user me-1" style="color:#ff6b35"></i>
+                                @Context.Session.GetString("UserName")
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <span class="dropdown-item-text text-muted">
+                                        <i class="fa-solid fa-shield-halved me-1"></i>
+                                        @Context.Session.GetString("UserRole")
+                                    </span>
+                                </li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <a class="dropdown-item text-danger"
+                                       asp-controller="Account" asp-action="Logout">
+                                        <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">
+                                <i class="fa-solid fa-right-to-bracket me-1"></i> Login
+                            </a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-orange btn-sm"
+                               asp-controller="Account" asp-action="Register">
+                                <i class="fa-solid fa-user-plus me-1"></i> Register
+                            </a>
+                        </li>
+                    }
+                </ul>
+
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- FOOTER -->
+    <footer class="mt-5 pt-4 pb-3">
         <div class="container">
-            &copy; 2026 - APP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+
+                <!-- Brand -->
+                <div class="col-md-4 mb-3">
+                    <h6><i class="fa-solid fa-burger me-2" style="color:#ff6b35"></i>FoodOrder</h6>
+                    <p style="font-size:14px;">
+                        Delicious food delivered to your door. Order online and enjoy your favourite meals.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-4 mb-3">
+                    <h6><i class="fa-solid fa-link me-2" style="color:#ff6b35"></i>Quick Links</h6>
+                    <ul class="list-unstyled" style="font-size:14px;">
+                        <li><a asp-controller="Home" asp-action="Index">
+                            <i class="fa-solid fa-house me-1"></i> Home</a></li>
+                        <li><a asp-controller="Account" asp-action="Login">
+                            <i class="fa-solid fa-right-to-bracket me-1"></i> Login</a></li>
+                        <li><a asp-controller="Account" asp-action="Register">
+                            <i class="fa-solid fa-user-plus me-1"></i> Register</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-4 mb-3">
+                    <h6><i class="fa-solid fa-headset me-2" style="color:#ff6b35"></i>Contact Us</h6>
+                    <ul class="list-unstyled" style="font-size:14px;">
+                        <li>
+                            <i class="fa-solid fa-location-dot me-2" style="color:#ff6b35"></i>
+                            Dhaka, Bangladesh
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone me-2" style="color:#ff6b35"></i>
+                            +880 1234 567890
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope me-2" style="color:#ff6b35"></i>
+                            support@foodorder.com
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <hr style="border-color:#444" />
+
+            <div class="text-center" style="font-size:13px;">
+                &copy; 2026 <span style="color:#ff6b35">FoodOrder</span> — All Rights Reserved.
+                Made with <i class="fa-solid fa-heart" style="color:#ff6b35"></i> in Bangladesh
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

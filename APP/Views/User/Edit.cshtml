@@ -1,0 +1,44 @@
+﻿@model BAL.DTOs.UserDTO
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4" style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.1)">
+            <h2 class="mb-4">✏️ Edit User</h2>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+
+            <form method="post">
+                <input asp-for="Id" type="hidden" />
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Full Name</label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Role</label>
+                    <select asp-for="Role" class="form-control">
+                        <option value="Admin">Admin</option>
+                        <option value="Customer">Customer</option>
+                    </select>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-warning w-100">💾 Save Changes</button>
+                    <a asp-action="Index" class="btn btn-secondary w-100">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

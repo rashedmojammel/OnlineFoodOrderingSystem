@@ -32,7 +32,7 @@ namespace APP.Controllers
         public IActionResult Create()
         {
             ViewBag.Users = userService.Get();
-            return View();
+            return View(new UserDTO());
         }
         [HttpPost]
         public IActionResult Create(UserDTO u)
@@ -108,6 +108,14 @@ namespace APP.Controllers
             }
             return RedirectToAction("Index");
         }
-         
+
+        public IActionResult UserList()
+        {
+            if (HttpContext.Session.GetString("UserName") == null)
+                return RedirectToAction("Login", "Account");
+
+            var users = userService.Get();
+            return View(users);
+        }
     }
 }

@@ -80,5 +80,13 @@ namespace App.Controllers
             }
             return RedirectToAction("Index");
         }
+        //public IActionResult UserList()
+        //{
+        //    if (HttpContext.Session.GetString("UserName") == null)
+        //        return RedirectToAction("Login", "Account");
+
+        //    var users = userService.Get();
+        //    return View(users);
+        //}
     }
 }
