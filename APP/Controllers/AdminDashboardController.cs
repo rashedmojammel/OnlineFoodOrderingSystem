@@ -44,9 +44,6 @@ namespace APP.Controllers
         [HttpPost]
         public IActionResult Create(UserDTO u)
         {
-            // Logic to create a new user (admin or customer) using the UserService
-            // This is just a placeholder and should be implemented according to your application's requirements
-            // For example, you might want to check the role and call different methods in the UserService
 
             if (ModelState.IsValid)
             {

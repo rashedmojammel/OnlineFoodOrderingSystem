@@ -70,6 +70,10 @@ namespace APP.Controllers
             ViewBag.Error = "Registration failed";
             return View(dto);
         }
+        public IActionResult Home()
+        {
+            return View();
+        }
 
         public IActionResult Logout()
         {
