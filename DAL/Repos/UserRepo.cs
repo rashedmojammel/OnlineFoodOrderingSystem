@@ -59,5 +59,16 @@ namespace DAL.Repos
         {
             return db.Users.Any(u => u.Email == email);
         }
+
+        public List<User> Search(String u)
+        {
+            return db.Users
+                .Where(user => user.Name.Contains(u) ||
+                user.Email.Contains(u)||
+                user.Role.Contains(u)
+                ).ToList();
+        }
+
+
     }
 }

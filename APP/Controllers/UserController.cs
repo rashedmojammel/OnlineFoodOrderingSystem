@@ -33,9 +33,20 @@ namespace App.Controllers
             return View(u);
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? search)
         {
-            var data = userService.Get();
+            List<UserDTO> data;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                data = userService.Search(search);
+                ViewBag.Search = search; 
+            }
+            else
+            {
+                data = userService.Get();
+            }
+
             return View(data);
         }
 

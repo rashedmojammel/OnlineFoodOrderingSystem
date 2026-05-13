@@ -64,5 +64,11 @@ namespace BAL.Services
         {
             return repo.EmailExists(email);
         }
+
+        public List<UserDTO> Search(string u)
+        {
+            var data = repo.Search(u);
+            return mapper.Map<List<UserDTO>>(data);
+        }
     }
 }

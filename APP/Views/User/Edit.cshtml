@@ -6,37 +6,53 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card p-4" style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.1)">
-            <h2 class="mb-4">✏️ Edit User</h2>
+            <h2 class="mb-4">
+                <i class="fa-solid fa-pen-to-square me-2" style="color:#ff6b35"></i>Edit User
+            </h2>
 
             @if (ViewBag.Error != null)
             {
-                <div class="alert alert-danger">@ViewBag.Error</div>
+                <div class="alert alert-danger">
+                    <i class="fa-solid fa-circle-exclamation me-2"></i>@ViewBag.Error
+                </div>
             }
 
             <form method="post">
                 <input asp-for="Id" type="hidden" />
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Full Name</label>
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-user me-1" style="color:#ff6b35"></i>Full Name
+                    </label>
                     <input asp-for="Name" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Email</label>
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-envelope me-1" style="color:#ff6b35"></i>Email
+                    </label>
                     <input asp-for="Email" type="email" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Password</label>
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-lock me-1" style="color:#ff6b35"></i>Password
+                    </label>
                     <input asp-for="Password" type="password" class="form-control" />
                 </div>
                 <div class="mb-4">
-                    <label class="form-label fw-bold">Role</label>
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-shield-halved me-1" style="color:#ff6b35"></i>Role
+                    </label>
                     <select asp-for="Role" class="form-control">
                         <option value="Admin">Admin</option>
                         <option value="Customer">Customer</option>
                     </select>
                 </div>
                 <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-warning w-100">💾 Save Changes</button>
-                    <a asp-action="Index" class="btn btn-secondary w-100">Cancel</a>
+                    <button type="submit" class="btn btn-warning w-100">
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary w-100">
+                        <i class="fa-solid fa-xmark me-1"></i> Cancel
+                    </a>
                 </div>
             </form>
         </div>
