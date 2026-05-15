@@ -13,6 +13,13 @@ namespace BAL
                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => "Customer"))
                .ForMember(dest => dest.Id, opt => opt.Ignore());
             cfg.CreateMap<Category, CategoryDTO>().ReverseMap();
+            cfg.CreateMap<Food, FoodDTO>()
+               .ForMember(dest => dest.CategoryName,
+                          opt => opt.MapFrom(src => src.Category != null
+                                             ? src.Category.Name : ""));
+            cfg.CreateMap<FoodDTO, Food>()
+               .ForMember(dest => dest.Category, opt => opt.Ignore());
+
         });
 
         public static Mapper GetMapper()
