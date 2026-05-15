@@ -12,10 +12,11 @@ namespace APP.Controllers
 
         UserService userService;
         CategoryService categoryService;
-        public AdminDashboardController(UserService userService, CategoryService categoryService) {
+        FoodService foodService;
+        public AdminDashboardController(UserService userService, CategoryService categoryService, FoodService foodService) {
             this.userService = userService;
             this.categoryService = categoryService;
-
+            this.foodService = foodService;
         }
 
         public IActionResult Index()
@@ -24,7 +25,7 @@ namespace APP.Controllers
             {
                 ViewBag.UserName = HttpContext.Session.GetString("UserName");
                 ViewBag.TotalUsers = userService.Get().Count;
-                
+                ViewBag.TotalFoods = foodService.Get().Count;
 
                 ViewBag.TotalCategories = categoryService.Get().Count;
 

@@ -1,0 +1,55 @@
+﻿@model BAL.DTOs.FoodDTO
+@{
+    ViewData["Title"] = "Delete Food";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-0 p-4 border-danger"
+             style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.1)">
+            <h2 class="fw-bold mb-4 text-danger">
+                <i class="fa-solid fa-trash me-2"></i>Delete Food Item
+            </h2>
+            <p class="text-muted">
+                <i class="fa-solid fa-triangle-exclamation me-2 text-warning"></i>
+                Are you sure you want to delete this food item?
+            </p>
+
+            <table class="table table-bordered mb-4">
+                <tr>
+                    <th><i class="fa-solid fa-hashtag me-1"></i>ID</th>
+                    <td>@Model.Id</td>
+                </tr>
+                <tr>
+                    <th><i class="fa-solid fa-burger me-1"></i>Name</th>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <th>
+                        <i class="fa-solid fa-money-bill me-1"></i>Price
+                    </th>
+                    <td>৳@Model.Price</td>
+                </tr>
+                <tr>
+                    <th>
+                        <i class="fa-solid fa-utensils me-1"></i>Category
+                    </th>
+                    <td>@Model.CategoryName</td>
+                </tr>
+            </table>
+
+            <form method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="d-flex gap-2">
+                    <button type="submit" name="Decision" value="Yes"
+                            class="btn btn-danger w-100">
+                        <i class="fa-solid fa-trash me-1"></i> Yes, Delete
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary w-100">
+                        <i class="fa-solid fa-xmark me-1"></i> No, Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

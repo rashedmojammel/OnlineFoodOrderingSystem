@@ -1,0 +1,83 @@
+﻿@model BAL.DTOs.FoodDTO
+@{
+    ViewData["Title"] = "Create Food";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-0 p-4"
+             style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.1)">
+            <h2 class="fw-bold mb-4">
+                <i class="fa-solid fa-plus me-2" style="color:#ff6b35"></i>
+                Add Food Item
+            </h2>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="fa-solid fa-circle-exclamation me-2"></i>
+                    @ViewBag.Error
+                </div>
+            }
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-burger me-1" style="color:#ff6b35"></i>
+                        Food Name
+                    </label>
+                    <input asp-for="Name" class="form-control"
+                           placeholder="e.g. Chicken Burger" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-align-left me-1"
+                           style="color:#ff6b35"></i>Description
+                    </label>
+                    <textarea asp-for="Description" class="form-control"
+                              rows="3"
+                              placeholder="Short description (optional)"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-money-bill me-1"
+                           style="color:#ff6b35"></i>Price (৳)
+                    </label>
+                    <input asp-for="Price" type="number" step="0.01"
+                           class="form-control" placeholder="e.g. 180.00" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-image me-1"
+                           style="color:#ff6b35"></i>Image URL
+                        <span class="text-muted fw-normal">(optional)</span>
+                    </label>
+                    <input asp-for="Image" class="form-control"
+                           placeholder="https://example.com/image.jpg" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-utensils me-1"
+                           style="color:#ff6b35"></i>Category
+                    </label>
+                    <select asp-for="CategoryId" class="form-control">
+                        <option value="">-- Select Category --</option>
+                        @foreach (var cat in ViewBag.Categories)
+                        {
+                            <option value="@cat.Id">@cat.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="fa-solid fa-circle-check me-1"></i>
+                        Add Food Item
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary w-100">
+                        <i class="fa-solid fa-xmark me-1"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

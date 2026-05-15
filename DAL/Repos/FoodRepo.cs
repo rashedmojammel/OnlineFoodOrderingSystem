@@ -28,7 +28,7 @@ namespace DAL.Repos
         {
             return db.Foods.ToList();
         }
-        public List<Food> GetbyCategory(int categoryID)
+        public List<Food> GetByCategory(int categoryID)
         {
             return db.Foods.Where(f => f.CategoryId == categoryID).ToList();
         }
