@@ -49,7 +49,7 @@ namespace DAL.Repos
         }
         public List<Category> Search(string Cname)
         {
-            return db.Categories.Where(c => c.Name.Contains(Cname)).ToList()
+            return db.Categories.Where(c => c.Name.Contains(Cname)).ToList();
         }
     }
     
