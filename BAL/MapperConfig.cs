@@ -12,6 +12,7 @@ namespace BAL
             cfg.CreateMap<RegisterDTO, User>()
                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => "Customer"))
                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            cfg.CreateMap<Category, CategoryDTO>().ReverseMap();
         });
 
         public static Mapper GetMapper()

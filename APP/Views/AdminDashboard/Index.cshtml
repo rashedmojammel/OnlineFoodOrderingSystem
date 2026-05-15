@@ -82,7 +82,7 @@
                 </div>
                 <h5 class="fw-bold">Users</h5>
                 <p class="text-muted small">Manage all registered users</p>
-                <a asp-action="UserList" class="btn w-100 text-white"
+                <a asp-controller="User" asp-action="Index" class="btn w-100 text-white"
                        style="background:#ff6b35">
                     <i class="fa-solid fa-arrow-right me-1"></i> Manage
                 </a>
@@ -197,11 +197,11 @@
                                 }
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@user.Id"
+                                <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id"
                                        class="btn btn-warning btn-sm">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@user.Id"
+                                <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id"
                                        class="btn btn-danger btn-sm">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>

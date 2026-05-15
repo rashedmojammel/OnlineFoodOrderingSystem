@@ -14,6 +14,8 @@ builder.Services.AddDbContext<OnlineFoodOrderingSystemDbContext>(opt =>
 
 builder.Services.AddScoped<UserRepo>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<CategoryRepo>();
+builder.Services.AddScoped<CategoryService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

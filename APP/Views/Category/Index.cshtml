@@ -1,0 +1,116 @@
+﻿@model List<BAL.DTOs.CategoryDTO>
+@{
+    ViewData["Title"] = "Manage Categories";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        <i class="fa-solid fa-circle-check me-2"></i>@TempData["Success"]
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>
+        <i class="fa-solid fa-utensils me-2" style="color:#ff6b35"></i>
+        Manage Categories
+    </h2>
+    <div>
+        <a asp-action="Create" class="btn btn-success me-2">
+            <i class="fa-solid fa-plus me-1"></i> Add Category
+        </a>
+        <a asp-controller="AdminDashboard" asp-action="Index"
+               class="btn btn-secondary">
+            <i class="fa-solid fa-arrow-left me-1"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- Search Bar -->
+<form method="get" asp-action="Index" class="mb-3">
+    <div class="input-group">
+        <span class="input-group-text" style="background:#ff6b35; color:white;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+        <input type="text" name="search" value="@ViewBag.Search"
+               class="form-control" placeholder="Search categories..." />
+        <button type="submit" class="btn btn-success">
+            <i class="fa-solid fa-magnifying-glass me-1"></i> Search
+        </button>
+        @if (ViewBag.Search != null)
+        {
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fa-solid fa-xmark me-1"></i> Clear
+            </a>
+        }
+    </div>
+</form>
+
+@if (ViewBag.Search != null)
+{
+    <p class="text-muted mb-3">
+        <i class="fa-solid fa-circle-info me-1"></i>
+        Found <strong>@Model.Count</strong> result(s) for "@ViewBag.Search"
+    </p>
+}
+
+<div class="card border-0"
+     style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead style="background:#ff6b35; color:white;">
+                <tr>
+                    <th class="ps-4">
+                        <i class="fa-solid fa-hashtag me-1"></i>ID
+                    </th>
+                    <th><i class="fa-solid fa-tag me-1"></i>Name</th>
+                    <th>
+                        <i class="fa-solid fa-align-left me-1"></i>Description
+                    </th>
+                    <th><i class="fa-solid fa-gear me-1"></i>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">
+                            <i class="fa-solid fa-face-frown fa-2x mb-2 d-block"></i>
+                            No categories found
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var cat in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">@cat.Id</td>
+                            <td>
+                                <span class="badge"
+                                      style="background:#fff3ee; color:#ff6b35;
+                                    font-size:14px">
+                                    <i class="fa-solid fa-utensils me-1"></i>
+                                    @cat.Name
+                                </span>
+                            </td>
+                            <td class="text-muted">
+                                @(cat.Description ?? "No description")
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@cat.Id"
+                                       class="btn btn-warning btn-sm">
+                                    <i class="fa-solid fa-pen-to-square me-1"></i>Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@cat.Id"
+                                       class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-trash me-1"></i>Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

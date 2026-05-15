@@ -11,8 +11,10 @@ namespace APP.Controllers
     {
 
         UserService userService;
-        public AdminDashboardController(UserService userService) {
+        CategoryService categoryService;
+        public AdminDashboardController(UserService userService, CategoryService categoryService) {
             this.userService = userService;
+            this.categoryService = categoryService;
 
         }
 
@@ -25,6 +27,8 @@ namespace APP.Controllers
                 //ViewBag.TotalCategories = 0; // replace when CategoryService is added
                 //ViewBag.TotalFoods = 0; // replace when FoodService is added
                 //ViewBag.TotalOrders = 0; // replace when OrderService is added
+
+                ViewBag.TotalCategories = categoryService.Get().Count;
 
                 ViewBag.RecentUsers = userService.Get().TakeLast(5).ToList();
 
