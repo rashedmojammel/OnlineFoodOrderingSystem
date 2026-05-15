@@ -18,6 +18,8 @@ public partial class OnlineFoodOrderingSystemDbContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<Food> Foods { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,6 +43,35 @@ public partial class OnlineFoodOrderingSystemDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Food>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__foods__3213E83FD6100BED");
+
+            entity.ToTable("foods");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("description");
+            entity.Property(e => e.Image)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("image");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("name");
+            entity.Property(e => e.Price)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("price");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Foods)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("FK__foods__category___5FB337D6");
         });
 
         modelBuilder.Entity<User>(entity =>
