@@ -16,6 +16,8 @@ public partial class OnlineFoodOrderingSystemDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Category> Categories { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -24,6 +26,23 @@ public partial class OnlineFoodOrderingSystemDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__categori__3213E83FC8A12972");
+
+            entity.ToTable("categories");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("description");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("name");
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("users");
