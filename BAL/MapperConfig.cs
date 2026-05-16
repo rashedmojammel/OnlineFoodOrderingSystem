@@ -22,6 +22,7 @@ namespace BAL
                .ForMember(dest => dest.Category, opt => opt.Ignore());
             cfg.CreateMap<Order, OrderDTO>().ReverseMap();
             cfg.CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+            //cfg.CreateMap<Notification, NotificationDTO>().ReverseMap();
 
         });
 

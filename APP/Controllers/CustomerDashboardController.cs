@@ -16,7 +16,7 @@ public class CustomerDashboardController : Controller
         if (HttpContext.Session.GetString("UserName") != null)
         {
             ViewBag.UserName = HttpContext.Session.GetString("UserName");
-            // Pass TempData success message to view
+           
         }
         else
         {
@@ -28,11 +28,11 @@ public class CustomerDashboardController : Controller
     [HttpGet]
     public IActionResult Edit()
     {
-        // Guard: must be logged in
+  
         if (HttpContext.Session.GetString("UserName") == null)
             return RedirectToAction("Login", "Account");
 
-        // Get ID from session — customer can only edit their own profile
+        
         int userId = int.Parse(HttpContext.Session.GetString("UserId"));
         var data = userService.Get(userId);
 
@@ -51,7 +51,6 @@ public class CustomerDashboardController : Controller
             var res = userService.Update(u);
             if (res)
             {
-                // Update session name in case they changed it
                 HttpContext.Session.SetString("UserName", u.Name);
                 TempData["Success"] = "Profile updated successfully!";
                 return RedirectToAction("Index");

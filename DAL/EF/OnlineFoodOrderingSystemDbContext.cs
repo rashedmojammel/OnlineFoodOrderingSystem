@@ -20,6 +20,8 @@ public partial class OnlineFoodOrderingSystemDbContext : DbContext
 
     public virtual DbSet<Food> Foods { get; set; }
 
+    public virtual DbSet<Notification> Notifications { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderItem> OrderItems { get; set; }
@@ -76,6 +78,35 @@ public partial class OnlineFoodOrderingSystemDbContext : DbContext
             entity.HasOne(d => d.Category).WithMany(p => p.Foods)
                 .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK__foods__category___5FB337D6");
+        });
+
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__notifica__3213E83FFDFC7C1B");
+
+            entity.ToTable("notifications");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.IsRead)
+                .HasDefaultValue(false)
+                .HasColumnName("is_read");
+            entity.Property(e => e.Message)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("message");
+            entity.Property(e => e.Title)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("title");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Notifications)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__notificat__user___6D0D32F4");
         });
 
         modelBuilder.Entity<Order>(entity =>

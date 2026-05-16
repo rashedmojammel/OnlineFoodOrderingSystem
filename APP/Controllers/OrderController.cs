@@ -31,7 +31,7 @@ namespace APP.Controllers
             return View(orders);
         }
 
-        // View single order details
+     
         public IActionResult Details(int id)
         {
             if (HttpContext.Session.GetString("UserName") == null)
@@ -42,7 +42,7 @@ namespace APP.Controllers
             return View(order);
         }
 
-        // Admin - update order status
+   
         [HttpPost]
         public IActionResult UpdateStatus(int id, string status)
         {
