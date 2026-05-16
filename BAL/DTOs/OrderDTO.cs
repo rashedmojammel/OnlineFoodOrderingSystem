@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BAL;
+using BAL.DTOs;
+using BAL.DTOs.BAL.DTOs;
 
 namespace BAL.DTOs
 {

@@ -19,6 +19,8 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<FoodRepo>();
 
 builder.Services.AddScoped<FoodService>();
+builder.Services.AddScoped<OrderRepo>();      
+builder.Services.AddScoped<OrderService>();   
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

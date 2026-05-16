@@ -1,0 +1,142 @@
+﻿@model List<BAL.DTOs.OrderDTO>
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        <i class="fa-solid fa-circle-check me-2"></i>@TempData["Success"]
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">
+        <i class="fa-solid fa-clipboard-list me-2"
+           style="color:#ff6b35"></i>Manage Orders
+    </h2>
+    <a asp-controller="AdminDashboard" asp-action="Index"
+           class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left me-1"></i> Back to Dashboard
+    </a>
+</div>
+
+<div class="card border-0"
+     style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead style="background:#ff6b35; color:white;">
+                <tr>
+                    <th class="ps-4">
+                        <i class="fa-solid fa-hashtag me-1"></i>Order ID
+                    </th>
+                    <th>
+                        <i class="fa-solid fa-user me-1"></i>User ID
+                    </th>
+                    <th>
+                        <i class="fa-solid fa-calendar me-1"></i>Date
+                    </th>
+                    <th>
+                        <i class="fa-solid fa-money-bill me-1"></i>Total
+                    </th>
+                    <th>
+                        <i class="fa-solid fa-circle-info me-1"></i>Status
+                    </th>
+                    <th>
+                        <i class="fa-solid fa-gear me-1"></i>Update Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">
+                            <i class="fa-solid fa-box-open fa-2x mb-2 d-block"></i>
+                            No orders yet
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-bold">#@order.Id</td>
+                            <td>@order.UserId</td>
+                            <td>
+                                @order.OrderDate?.ToString("dd MMM yyyy")
+                            </td>
+                            <td class="fw-bold" style="color:#ff6b35">
+                                ৳@order.Total
+                            </td>
+                            <td>
+                                @if (order.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="fa-solid fa-clock me-1"></i>
+                                        Pending
+                                    </span>
+                                }
+                                else if (order.Status == "Preparing")
+                                {
+                                    <span class="badge bg-primary">
+                                        <i class="fa-solid fa-fire me-1"></i>
+                                        Preparing
+                                    </span>
+                                }
+                                else if (order.Status == "Delivered")
+                                {
+                                    <span class="badge bg-success">
+                                        <i class="fa-solid fa-circle-check me-1"></i>
+                                        Delivered
+                                    </span>
+                                }
+                                else if (order.Status == "Cancelled")
+                                {
+                                    <span class="badge bg-danger">
+                                        <i class="fa-solid fa-xmark me-1"></i>
+                                        Cancelled
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                <form method="post"
+                                      asp-action="UpdateStatus"
+                                      class="d-flex gap-2">
+                                    <input type="hidden" name="id"
+                                           value="@order.Id" />
+                                    <select name="status"
+                                            class="form-select form-select-sm"
+                                            style="width:130px">
+                                        <option value="Pending"
+                                                selected="@(order.Status == "Pending")">
+                                            Pending
+                                        </option>
+                                        <option value="Preparing"
+                                                selected="@(order.Status == "Preparing")">
+                                            Preparing
+                                        </option>
+                                        <option value="Delivered"
+                                                selected="@(order.Status == "Delivered")">
+                                            Delivered
+                                        </option>
+                                        <option value="Cancelled"
+                                                selected="@(order.Status == "Cancelled")">
+                                            Cancelled
+                                        </option>
+                                    </select>
+                                    <button type="submit"
+                                            class="btn btn-sm text-white"
+                                            style="background:#ff6b35">
+                                        <i class="fa-solid fa-check"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

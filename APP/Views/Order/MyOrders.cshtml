@@ -1,0 +1,101 @@
+﻿@model List<BAL.DTOs.OrderDTO>
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<h2 class="fw-bold mb-4">
+    <i class="fa-solid fa-box me-2" style="color:#ff6b35"></i>My Orders
+</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        <i class="fa-solid fa-circle-check me-2"></i>@TempData["Success"]
+    </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="text-center py-5">
+        <i class="fa-solid fa-box-open fa-4x mb-3 d-block text-muted"></i>
+        <h4 class="text-muted">No orders yet</h4>
+        <a asp-controller="Menu" asp-action="Index"
+           class="btn mt-3 text-white" style="background:#ff6b35">
+            <i class="fa-solid fa-utensils me-1"></i> Order Now
+        </a>
+    </div>
+}
+else
+{
+    @foreach (var order in Model)
+    {
+        <div class="card border-0 mb-4"
+             style="border-radius:15px;
+                    box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+            <div class="card-header border-0 d-flex justify-content-between
+                        align-items-center"
+                 style="background:white; border-radius:15px 15px 0 0">
+                <div>
+                    <h6 class="fw-bold mb-0">
+                        <i class="fa-solid fa-hashtag me-1"
+                           style="color:#ff6b35"></i>Order #@order.Id
+                    </h6>
+                    <small class="text-muted">
+                        <i class="fa-solid fa-calendar me-1"></i>
+                        @order.OrderDate?.ToString("dd MMM yyyy hh:mm tt")
+                    </small>
+                </div>
+                <div>
+                    @if (order.Status == "Pending")
+                    {
+                        <span class="badge bg-warning text-dark">
+                            <i class="fa-solid fa-clock me-1"></i>Pending
+                        </span>
+                    }
+                    else if (order.Status == "Preparing")
+                    {
+                        <span class="badge bg-primary">
+                            <i class="fa-solid fa-fire me-1"></i>Preparing
+                        </span>
+                    }
+                    else if (order.Status == "Delivered")
+                    {
+                        <span class="badge bg-success">
+                            <i class="fa-solid fa-circle-check me-1"></i>Delivered
+                        </span>
+                    }
+                    else if (order.Status == "Cancelled")
+                    {
+                        <span class="badge bg-danger">
+                            <i class="fa-solid fa-xmark me-1"></i>Cancelled
+                        </span>
+                    }
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm mb-2">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in order.OrderItems)
+                        {
+                            <tr>
+                                <td>@item.FoodName</td>
+                                <td>@item.Quantity</td>
+                                <td>৳@item.Price</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-end fw-bold fs-5" style="color:#ff6b35">
+                    Total: ৳@order.Total
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BAL.DTOs;
+using BAL.DTOs.BAL.DTOs;
 using DAL.EF.Tables;
 
 namespace BAL
@@ -19,6 +20,8 @@ namespace BAL
                                              ? src.Category.Name : ""));
             cfg.CreateMap<FoodDTO, Food>()
                .ForMember(dest => dest.Category, opt => opt.Ignore());
+            cfg.CreateMap<Order, OrderDTO>().ReverseMap();
+            cfg.CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
 
         });
 
