@@ -1,8 +1,8 @@
-﻿using BAL.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
+using BAL.DTOs;
 using BAL.Services;
-using Microsoft.AspNetCore.Mvc;
-
 namespace APP.Controllers
+
 {
     public class CategoryController : Controller
     {

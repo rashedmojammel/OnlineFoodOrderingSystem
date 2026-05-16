@@ -40,7 +40,7 @@ namespace APP.Controllers
 
                 else
                 {
-                    TempData["Success"] = $"Welcome back, {user.Name}!";
+                    TempData["Success"] = $"Welcome back, {user.Name}!"; 
                     return RedirectToAction("Index", "CustomerDashboard");
 
                 }
