@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FoodOrder</title>
+    <title>@ViewData["Title"] - Foodyy</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -34,7 +34,7 @@
         <div class="container">
             <a class="navbar-brand">
                 <i class="fa-solid fa-burger" style="color:#ff6b35"></i>
-                <span>FoodOrder</span>
+                <span>Foodyy</span>
             </a>
 
             
@@ -56,17 +56,17 @@
                     {
                         <!-- Brand -->
             
-                        @* <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="AdminDashboard" asp-action="Index">
                                 <i class="fa-solid fa-gauge me-1"></i> Home
                             </a>
-                        </li> *@
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="User" asp-action="Index">
                                 <i class="fa-solid fa-users me-1"></i> Users
                             </a>
                         </li>
-                        @* <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">
                                 <i class="fa-solid fa-utensils me-1"></i> Categories
                             </a>
@@ -80,7 +80,7 @@
                             <a class="nav-link text-dark" asp-controller="Order" asp-action="Index">
                                 <i class="fa-solid fa-clipboard-list me-1"></i> Orders
                             </a>
-                        </li> *@
+                        </li>
                     }
                     else if (Context.Session.GetString("UserRole") != null &&
                              Context.Session.GetString("UserRole").ToLower() == "customer")

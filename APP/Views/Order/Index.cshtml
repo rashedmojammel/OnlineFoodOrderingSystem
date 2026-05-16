@@ -5,8 +5,9 @@
 
 @if (TempData["Success"] != null)
 {
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissible fade show">
         <i class="fa-solid fa-circle-check me-2"></i>@TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
 
@@ -16,11 +17,52 @@
            style="color:#ff6b35"></i>Manage Orders
     </h2>
     <a asp-controller="AdminDashboard" asp-action="Index"
-           class="btn btn-secondary">
+       class="btn btn-secondary">
         <i class="fa-solid fa-arrow-left me-1"></i> Back to Dashboard
     </a>
 </div>
 
+<!-- Stats Row -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-2">
+        <div class="card border-0 text-center p-3"
+             style="border-radius:12px; background:#fff3ee">
+            <h4 class="fw-bold mb-0" style="color:#ff6b35">
+                @Model.Count
+            </h4>
+            <small class="text-muted">Total Orders</small>
+        </div>
+    </div>
+    <div class="col-md-3 mb-2">
+        <div class="card border-0 text-center p-3"
+             style="border-radius:12px; background:#fff8e1">
+            <h4 class="fw-bold mb-0 text-warning">
+                @Model.Count(o => o.Status == "Pending")
+            </h4>
+            <small class="text-muted">Pending</small>
+        </div>
+    </div>
+    <div class="col-md-3 mb-2">
+        <div class="card border-0 text-center p-3"
+             style="border-radius:12px; background:#e8f4fd">
+            <h4 class="fw-bold mb-0 text-primary">
+                @Model.Count(o => o.Status == "Preparing")
+            </h4>
+            <small class="text-muted">Preparing</small>
+        </div>
+    </div>
+    <div class="col-md-3 mb-2">
+        <div class="card border-0 text-center p-3"
+             style="border-radius:12px; background:#eaffee">
+            <h4 class="fw-bold mb-0 text-success">
+                @Model.Count(o => o.Status == "Delivered")
+            </h4>
+            <small class="text-muted">Delivered</small>
+        </div>
+    </div>
+</div>
+
+<!-- Orders Table -->
 <div class="card border-0"
      style="border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.08)">
     <div class="card-body p-0">
@@ -37,13 +79,19 @@
                         <i class="fa-solid fa-calendar me-1"></i>Date
                     </th>
                     <th>
+                        <i class="fa-solid fa-burger me-1"></i>Items
+                    </th>
+                    <th>
                         <i class="fa-solid fa-money-bill me-1"></i>Total
+                    </th>
+                    <th>
+                        <i class="fa-solid fa-wallet me-1"></i>Payment
                     </th>
                     <th>
                         <i class="fa-solid fa-circle-info me-1"></i>Status
                     </th>
                     <th>
-                        <i class="fa-solid fa-gear me-1"></i>Update Status
+                        <i class="fa-solid fa-gear me-1"></i>Update
                     </th>
                 </tr>
             </thead>
@@ -51,8 +99,8 @@
                 @if (Model.Count == 0)
                 {
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-4">
-                            <i class="fa-solid fa-box-open fa-2x mb-2 d-block"></i>
+                        <td colspan="8" class="text-center text-muted py-5">
+                            <i class="fa-solid fa-box-open fa-3x mb-3 d-block"></i>
                             No orders yet
                         </td>
                     </tr>
@@ -63,74 +111,111 @@
                     {
                         <tr>
                             <td class="ps-4 fw-bold">#@order.Id</td>
-                            <td>@order.UserId</td>
                             <td>
-                                @order.OrderDate?.ToString("dd MMM yyyy")
+                                <span class="badge bg-secondary">
+                                    <i class="fa-solid fa-user me-1"></i>
+                                    User #@order.UserId
+                                </span>
                             </td>
-                            <td class="fw-bold" style="color:#ff6b35">
-                                ৳@order.Total
+                            <td>
+                                <div>@order.OrderDate?.ToString("dd MMM yyyy")</div>
+                                <small class="text-muted">
+                                    @order.OrderDate?.ToString("hh:mm tt")
+                                </small>
+                            </td>
+                            <td>
+                                @foreach (var item in order.OrderItems)
+                                {
+                                    <div class="small">
+                                        <i class="fa-solid fa-circle-dot me-1"
+                                           style="color:#ff6b35; font-size:8px"></i>
+                                        @item.FoodName : @item.Quantity
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <span class="fw-bold" style="color:#ff6b35">
+                                    ৳@order.Total
+                                </span>
+                            </td>
+                            <td>
+                                <div>
+                                    @if (order.PaymentMethod == "Cash on Delivery")
+                                    {
+                                        <i class="fa-solid fa-money-bill me-1 text-success"></i>
+                                    }
+                                    else if (order.PaymentMethod == "bKash")
+                                    {
+                                        <i class="fa-solid fa-mobile-screen me-1"
+                                           style="color:#E2136E"></i>
+                                    }
+                                    else if (order.PaymentMethod == "Nagad")
+                                    {
+                                        <i class="fa-solid fa-mobile-screen me-1"
+                                           style="color:#F6A024"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-credit-card me-1 text-primary"></i>
+                                    }
+                                    <small>@order.PaymentMethod</small>
+                                </div>
+                                @if (order.PaymentStatus == "Paid")
+                                {
+                                    <span class="badge bg-success mt-1">
+                                        <i class="fa-solid fa-circle-check me-1"></i>Paid
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger mt-1">
+                                        <i class="fa-solid fa-clock me-1"></i>Unpaid
+                                    </span>
+                                }
                             </td>
                             <td>
                                 @if (order.Status == "Pending")
                                 {
-                                    <span class="badge bg-warning text-dark">
-                                        <i class="fa-solid fa-clock me-1"></i>
-                                        Pending
+                                    <span class="badge bg-warning text-dark px-2 py-2">
+                                        <i class="fa-solid fa-clock me-1"></i>Pending
                                     </span>
                                 }
                                 else if (order.Status == "Preparing")
                                 {
-                                    <span class="badge bg-primary">
-                                        <i class="fa-solid fa-fire me-1"></i>
-                                        Preparing
+                                    <span class="badge bg-primary px-2 py-2">
+                                        <i class="fa-solid fa-fire me-1"></i>Preparing
                                     </span>
                                 }
                                 else if (order.Status == "Delivered")
                                 {
-                                    <span class="badge bg-success">
-                                        <i class="fa-solid fa-circle-check me-1"></i>
-                                        Delivered
+                                    <span class="badge bg-success px-2 py-2">
+                                        <i class="fa-solid fa-circle-check me-1"></i>Delivered
                                     </span>
                                 }
                                 else if (order.Status == "Cancelled")
                                 {
-                                    <span class="badge bg-danger">
-                                        <i class="fa-solid fa-xmark me-1"></i>
-                                        Cancelled
+                                    <span class="badge bg-danger px-2 py-2">
+                                        <i class="fa-solid fa-xmark me-1"></i>Cancelled
                                     </span>
                                 }
                             </td>
                             <td>
-                                <form method="post"
-                                      asp-action="UpdateStatus"
-                                      class="d-flex gap-2">
+                                <form method="post" asp-action="UpdateStatus">
                                     <input type="hidden" name="id"
                                            value="@order.Id" />
-                                    <select name="status"
-                                            class="form-select form-select-sm"
-                                            style="width:130px">
-                                        <option value="Pending"
-                                                selected="@(order.Status == "Pending")">
-                                            Pending
-                                        </option>
-                                        <option value="Preparing"
-                                                selected="@(order.Status == "Preparing")">
-                                            Preparing
-                                        </option>
-                                        <option value="Delivered"
-                                                selected="@(order.Status == "Delivered")">
-                                            Delivered
-                                        </option>
-                                        <option value="Cancelled"
-                                                selected="@(order.Status == "Cancelled")">
-                                            Cancelled
-                                        </option>
-                                    </select>
-                                    <button type="submit"
-                                            class="btn btn-sm text-white"
-                                            style="background:#ff6b35">
-                                        <i class="fa-solid fa-check"></i>
-                                    </button>
+                                    <div class="d-flex gap-1">
+                                        <select name="status" class="form-select form-select-sm" style="width:120px">
+                                            <option value="Pending" selected="@(order.Status == "Pending" ? "selected" : null)">Pending</option>
+                                            <option value="Preparing" selected="@(order.Status == "Preparing" ? "selected" : null)">Preparing</option>
+                                            <option value="Delivered" selected="@(order.Status == "Delivered" ? "selected" : null)">Delivered</option>
+                                            <option value="Cancelled" selected="@(order.Status == "Cancelled" ? "selected" : null)">Cancelled</option>
+                                        </select>
+                                        <button type="submit"
+                                                class="btn btn-sm text-white"
+                                                style="background:#ff6b35">
+                                            <i class="fa-solid fa-check"></i>
+                                        </button>
+                                    </div>
                                 </form>
                             </td>
                         </tr>

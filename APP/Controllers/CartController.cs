@@ -112,7 +112,8 @@ namespace APP.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+
+        [HttpGet]
         public IActionResult Checkout()
         {
             if (HttpContext.Session.GetString("UserName") == null)
@@ -125,8 +126,25 @@ namespace APP.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Total = cart.Sum(i => i.Total);
+            return View(new CheckoutDTO { Total = cart.Sum(i => i.Total) });
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(CheckoutDTO dto)
+        {
+            if (HttpContext.Session.GetString("UserName") == null)
+                return RedirectToAction("Login", "Account");
+
+            var cart = GetCart();
+            if (cart.Count == 0)
+            {
+                TempData["Error"] = "Your cart is empty!";
+                return RedirectToAction("Index");
+            }
+
             int userId = int.Parse(HttpContext.Session.GetString("UserId")!);
-            var result = orderService.PlaceOrder(userId, cart);
+            var result = orderService.PlaceOrder(userId, cart, dto.PaymentMethod);
 
             if (result)
             {

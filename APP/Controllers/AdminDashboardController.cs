@@ -33,6 +33,8 @@ namespace APP.Controllers
                 ViewBag.TotalCategories = categoryService.Get().Count;
 
                 ViewBag.RecentUsers = userService.Get().TakeLast(5).ToList();
+                
+
 
             }
             else

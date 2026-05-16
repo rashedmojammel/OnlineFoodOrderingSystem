@@ -18,7 +18,7 @@ namespace BAL.Services
             this.repo = repo;
             mapper = MapperConfig.GetMapper();
         }
-        public bool PlaceOrder(int userId, List<CartItemDTO> cartItems)
+        public bool PlaceOrder(int userId, List<CartItemDTO> cartItems, string paymentMethod)
         {
             if (cartItems == null || cartItems.Count == 0) return false;
 

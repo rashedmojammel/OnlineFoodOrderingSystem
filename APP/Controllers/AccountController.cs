@@ -2,6 +2,7 @@
 using BAL.Services;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace APP.Controllers
 {
     public class AccountController : Controller
@@ -30,10 +31,24 @@ namespace APP.Controllers
                 HttpContext.Session.SetString("UserId", user.Id.ToString());
 
                 if (user.Role.ToLower() == "admin")
+                {
+                    //TempData["Success"] = "Wellcome Admin";
+                    TempData["Success"] = $"Welcome back, {user.Name}!";
                     return RedirectToAction("Index", "AdminDashboard");
+
+                }
+
                 else
+                {
+                    TempData["Success"] = $"Welcome back, {user.Name}!";
                     return RedirectToAction("Index", "CustomerDashboard");
+
+                }
+                    
+               
+
             }
+           
 
             ViewBag.Error = "Invalid email or password";
             return View(dto);
