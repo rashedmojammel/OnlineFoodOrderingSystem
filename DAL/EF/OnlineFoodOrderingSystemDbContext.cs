@@ -89,6 +89,16 @@ public partial class OnlineFoodOrderingSystemDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("order_date");
+            entity.Property(e => e.PaymentMethod)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValue("Cash on Delivery")
+                .HasColumnName("payment_method");
+            entity.Property(e => e.PaymentStatus)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValue("Paid")
+                .HasColumnName("payment_status");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
                 .IsUnicode(false)
