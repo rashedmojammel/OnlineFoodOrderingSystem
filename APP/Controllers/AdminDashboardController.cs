@@ -26,21 +26,44 @@ namespace APP.Controllers
             if (HttpContext.Session.GetString("UserName") != null)
             {
                 ViewBag.UserName = HttpContext.Session.GetString("UserName");
+
+                // Totals
                 ViewBag.TotalUsers = userService.Get().Count;
                 ViewBag.TotalFoods = foodService.Get().Count;
                 ViewBag.TotalOrders = orderService.GetAllOrders().Count;
-
                 ViewBag.TotalCategories = categoryService.Get().Count;
 
-                ViewBag.RecentUsers = userService.Get().TakeLast(5).ToList();
-                
+                // Recent Users
+                ViewBag.RecentUsers = userService.Get()
+                                                .TakeLast(5)
+                                                .ToList();
 
+                // Recent Orders
+                ViewBag.RecentOrders = orderService.GetAllOrders()
+                                                   .TakeLast(5)
+                                                   .ToList();
 
+                // Order Status Counts
+                ViewBag.PendingOrders = orderService.GetAllOrders()
+                                                    .Count(o => o.Status == "Pending");
+
+                ViewBag.CompletedOrders = orderService.GetAllOrders()
+                                                      .Count(o => o.Status == "Delivered");
+
+                // Revenue
+                ViewBag.TotalRevenue = orderService.GetAllOrders()
+                                      .Where(o => o.Status == "Delivered")
+                                      .Sum(o => o.Total);
+                // Latest Foods
+                ViewBag.LatestFoods = foodService.Get()
+                                                 .TakeLast(5)
+                                                 .ToList();
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
+
             return View();
         }
         [HttpGet]

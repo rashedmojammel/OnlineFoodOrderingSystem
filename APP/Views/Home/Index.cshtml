@@ -283,27 +283,6 @@
                         Get Started
                     </a>
                 }
-                else
-                {
-                    <span style="font-size:14px; color:#7a5c50; align-self:center;">
-                        Hi, @Context.Session.GetString("UserName")
-                    </span>
-                    @if (Context.Session.GetString("UserRole")?.ToLower() == "admin")
-                    {
-                        <a asp-controller="AdminDashboard" asp-action="Index"
-                           class="fo-btn-primary" style="padding: 9px 22px; font-size: 14px;">
-                            <i class="fa-solid fa-gauge"></i> Dashboard
-                        </a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Menu" asp-action="Index"
-                           class="fo-btn-primary" style="padding: 9px 22px; font-size: 14px;">
-                            <i class="fa-solid fa-utensils"></i> Order Now
-                        </a>
-                    }
-                }
-            </div>
         </div>
     </nav>
 
@@ -332,21 +311,8 @@
                         <i class="fa-solid fa-right-to-bracket"></i> Login
                     </a>
                 }
-                else
-                {
-                    @if (Context.Session.GetString("UserRole")?.ToLower() == "admin")
-                    {
-                        <a asp-controller="AdminDashboard" asp-action="Index" class="fo-btn-primary">
-                            <i class="fa-solid fa-gauge"></i> Go to Dashboard
-                        </a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Menu" asp-action="Index" class="fo-btn-primary">
-                            <i class="fa-solid fa-utensils"></i> Order Now
-                        </a>
-                    }
-                }
+             
+                
             </div>
 
             <!-- Floating Pills -->

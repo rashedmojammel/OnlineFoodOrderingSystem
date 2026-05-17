@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 public class CustomerDashboardController : Controller
 {
     UserService userService;
+    OrderService orderService;
 
-    public CustomerDashboardController(UserService userService)
+    public CustomerDashboardController(UserService userService, OrderService orderService)
     {
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     public IActionResult Index()
@@ -16,7 +18,11 @@ public class CustomerDashboardController : Controller
         if (HttpContext.Session.GetString("UserName") != null)
         {
             ViewBag.UserName = HttpContext.Session.GetString("UserName");
-           
+            ViewBag.RecentOrders = orderService.GetAllOrders()
+             
+                                          .Take(5)
+                                          .ToList();
+
         }
         else
         {

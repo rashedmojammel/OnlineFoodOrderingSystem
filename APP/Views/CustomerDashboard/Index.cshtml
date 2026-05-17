@@ -185,6 +185,12 @@
                                         <i class="fa-solid fa-circle-check me-1"></i>Delivered
                                     </span>
                                 }
+                                else if (order.Status == "Cancelled")
+                                {
+                                    <span class="badge bg-danger px-2 py-2">
+                                        <i class="fa-solid fa-xmark me-1"></i>Cancelled
+                                    </span>
+                                }
                             </td>
                         </tr>
                     }

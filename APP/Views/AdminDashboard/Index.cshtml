@@ -74,6 +74,56 @@
         </div>
     </div>
 </div>
+<div class="row mb-4">
+
+    <!-- Pending Orders -->
+    <div class="col-md-4 mb-3">
+        <div class="card border-0 text-white"
+             style="border-radius:15px;
+            background:linear-gradient(135deg,#dc3545,#ff6b6b)">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-1 opacity-75">Pending Orders</p>
+                    <h3 class="fw-bold mb-0">@ViewBag.PendingOrders</h3>
+                </div>
+                <i class="fa-solid fa-clock fa-2x opacity-75"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Completed Orders -->
+    <div class="col-md-4 mb-3">
+        <div class="card border-0 text-white"
+             style="border-radius:15px;
+            background:linear-gradient(135deg,#198754,#20c997)">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-1 opacity-75">Completed Orders</p>
+                    <h3 class="fw-bold mb-0">@ViewBag.CompletedOrders</h3>
+                </div>
+                <i class="fa-solid fa-check-circle fa-2x opacity-75"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue -->
+    <div class="col-md-4 mb-3">
+        <div class="card border-0 text-white"
+             style="border-radius:15px;
+            background:linear-gradient(135deg,#6f42c1,#9b59b6)">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-1 opacity-75">Total Revenue</p>
+                    <h3 class="fw-bold mb-0">
+                        ৳@ViewBag.TotalRevenue
+                    </h3>
+                </div>
+                <i class="fa-solid fa-money-bill-wave fa-2x opacity-75"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <!-- Management Cards -->
 <h5 class="fw-bold mb-3">
@@ -220,5 +270,51 @@
                 }
             </tbody>
         </table>
+      
+        <!-- Latest Foods -->
+        <div class="card border-0 mb-4"
+             style="border-radius:15px;
+            box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+
+            <div class="card-header border-0"
+                 style="background:white; border-radius:15px 15px 0 0">
+
+                <h5 class="fw-bold mb-0">
+                    <i class="fa-solid fa-burger me-2"
+                       style="color:#ff6b35"></i>
+                    Latest Food Items
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    @foreach (var food in ViewBag.LatestFoods)
+                    {
+                        <div class="col-md-3 mb-3">
+
+                            <div class="border rounded p-3 text-center">
+
+                                <i class="fa-solid fa-burger fa-2x text-primary mb-2"></i>
+
+                                <h6 class="fw-bold">
+                                    @food.Name
+                                </h6>
+
+                                <p class="text-muted mb-1">
+                                    ৳@food.Price
+                                </p>
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </div>
