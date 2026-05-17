@@ -10,16 +10,16 @@ namespace BAL
         static MapperConfiguration config = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<User, UserDTO>().ReverseMap();
-            cfg.CreateMap<RegisterDTO, User>()
-               .ForMember(dest => dest.Role, opt => opt.MapFrom(src => "Customer"))
-               .ForMember(dest => dest.Id, opt => opt.Ignore());
+            cfg.CreateMap<RegisterDTO, User>();
+               //.ForMember(dest => dest.Role, opt => opt.MapFrom(src => "Customer"))
+               //.ForMember(dest => dest.Id, opt => opt.Ignore());
             cfg.CreateMap<Category, CategoryDTO>().ReverseMap();
-            cfg.CreateMap<Food, FoodDTO>()
-               .ForMember(dest => dest.CategoryName,
-                          opt => opt.MapFrom(src => src.Category != null
-                                             ? src.Category.Name : ""));
-            cfg.CreateMap<FoodDTO, Food>()
-               .ForMember(dest => dest.Category, opt => opt.Ignore());
+            cfg.CreateMap<Food, FoodDTO>();
+            //.ForMember(dest => dest.CategoryName,
+            //           opt => opt.MapFrom(src => src.Category != null
+            //                              ? src.Category.Name : ""));
+            cfg.CreateMap<FoodDTO, Food>();
+               //.ForMember(dest => dest.Category, opt => opt.Ignore());
             cfg.CreateMap<Order, OrderDTO>().ReverseMap();
             cfg.CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
             //cfg.CreateMap<Notification, NotificationDTO>().ReverseMap();
