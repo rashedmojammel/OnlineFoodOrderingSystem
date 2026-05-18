@@ -50,7 +50,7 @@ A full-stack **ASP.NET Core MVC** web application for online food ordering, buil
 | Layer | Responsibility |
 |-------|---------------|
 | **APP** | Handles HTTP requests, sessions, views, user interface |
-| **BAL** | Business logic, validation, AutoMapper DTO conversion |
+| **BLL** | Business logic, validation, AutoMapper DTO conversion |
 | **DAL** | Database operations, Entity Framework, SQL Server |
 
 ---
