@@ -35,7 +35,7 @@ A full-stack **ASP.NET Core MVC** web application for online food ordering, buil
 └────────────────┬────────────────────┘
                  │
 ┌────────────────▼────────────────────┐
-│       BAL (Business Logic Layer)    │
+│       BLL (Business Logic Layer)    │
 │  Services + DTOs + AutoMapper       │
 └────────────────┬────────────────────┘
                  │
