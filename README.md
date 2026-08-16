@@ -1,4 +1,4 @@
-# 🍔 Foodyy — Online Food Ordering System!
+# 🍔 Foodyy — Online Food Ordering System
 
 A full-stack **ASP.NET Core MVC** web application for online food ordering, built with a clean **3-Tier Architecture** using Entity Framework Core, AutoMapper, and SQL Server.
 
